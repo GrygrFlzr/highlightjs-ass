@@ -10,4 +10,5 @@
     "moduleResolution": "bundler",
     "target": "ESNext",
   },
+  "include": ["src/**/*.js", "test/**/*.js"],
 }
