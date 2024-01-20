@@ -3,5 +3,6 @@
 .gitignore
 .swcrc
 pnpm-lock.yaml
-node_modules
 jsconfig.json
+node_modules/
+test/
