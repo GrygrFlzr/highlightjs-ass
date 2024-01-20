@@ -1,0 +1,21 @@
+{
+  "name": "highlightjs-ass",
+  "version": "0.0.1",
+  "description": "(Advanced) SubStation Alpha subtitle grammar for highlight.js",
+  "type": "module",
+  "main": "src/languages/ass.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "keywords": [],
+  "author": "GrygrFlzr (https://github.com/GrygrFlzr)",
+  "license": "0BSD",
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.5",
+    "highlight.js": "^11.9.0",
+    "mocha": "^10.2.0",
+    "prettier": "^3.2.4",
+    "should": "^13.2.3"
+  }
+}
