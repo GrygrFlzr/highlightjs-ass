@@ -1,3 +1,4 @@
+import "should";
 import { promisify } from "util";
 import path from "path";
 import hljs from "highlight.js";
@@ -19,7 +20,7 @@ describe("ASS syntax highlighting", () => {
     hljs.registerLanguage("ass", hljsDefineAss);
 
     const files = (await readdir(path.join(__dirname, "markup"))).filter(
-      (f) => !f.includes(".expected.")
+      (f) => !f.includes(".expect.")
     );
     const scenarios = files.map((f) => f.replace(/\.ass$/, ""));
     for (const scenario of scenarios) {

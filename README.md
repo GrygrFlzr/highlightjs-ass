@@ -4,5 +4,4 @@
 
 ## Known Issues
 
-- Match official highlight.js tooling to generate a browser/CDN version
-- Missing `\N`, `\n`, and `\h`
+- Match official highlight.js tooling to generate a browser/CDN/node versions

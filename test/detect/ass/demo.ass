@@ -13,8 +13,6 @@ PlayResY: 720
 Video File: ?dummy:24000/1001:40000:1280:720:47:163:254:
 Video AR Value: 1.777778
 Video Zoom Percent: 1.000000
-Active Line: 1
-Video Position: 120
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
@@ -22,6 +20,6 @@ Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{\i1\b700\c&HFFFFFF&\t(\c&H05FF00&)}The quick brown fox jumps over the lazy dog
+Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{\i1\b700\c&HFFFFFF&\t(\c&H05FF00&)}The quick brown fox\Njumps over the lazy dog
 Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{\an7\1c&HFFFFFF&\p1\pos(417.61,-56.3)}m 646.87 391.01 b 645.98 391.97 645.04 392.88 644.05 393.73 l 644.05 391.01 646.87 391.01{\p0}
 Comment: 0,0:00:05.00,0:00:08.00,Default,,0,0,0,,This is a comment line

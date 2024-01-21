@@ -217,6 +217,14 @@ export default function (hljs) {
     relevance: 0,
   };
 
+  // \n, \N, and \h
+  /** @type {Mode} */
+  const SIMPLE_ESCAPE_CHAR = {
+    match: /\\[nNh]/,
+    scope: "literal",
+    relevance: 0,
+  };
+
   /** @type {Mode} */
   const DIALOGUE = {
     begin: [
@@ -265,7 +273,7 @@ export default function (hljs) {
     },
     starts: {
       end: /$/,
-      contains: [BRACE_GROUP],
+      contains: [SIMPLE_ESCAPE_CHAR, BRACE_GROUP],
     },
     relevance: 2,
   };
@@ -348,6 +356,7 @@ export default function (hljs) {
     contains: [
       // Partial ASS tags
       BRACE_GROUP,
+      SIMPLE_ESCAPE_CHAR,
       // completely defined ASS-files
       SECTION_HEADER,
       COMMENTS,

@@ -1,3 +1,7 @@
+# 0.0.4
+
+- Support \\n, \\N, and \\h
+
 # 0.0.3
 
 - Prevent polynomial backtracking in Style and Dialogue
