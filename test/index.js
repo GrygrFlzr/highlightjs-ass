@@ -1,4 +1,3 @@
-import should from "should";
 import { promisify } from "util";
 import path from "path";
 import hljs from "highlight.js";
@@ -27,7 +26,7 @@ describe("ASS syntax highlighting", () => {
       it(`should perform syntax highlighting on "${scenario}"`, async () => {
         const file = `${scenario}.ass`;
         const filePath = path.join(__dirname, "markup", file);
-        const expectedFilePath = filePath.replace(".ass", ".expected.html");
+        const expectedFilePath = filePath.replace(".ass", ".expect.html");
         // get rid of byte order mark
         const code = (await readFile(filePath, "utf-8")).trimStart();
         const expected = await readFile(expectedFilePath, "utf-8");

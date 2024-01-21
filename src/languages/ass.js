@@ -72,6 +72,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: regex.concat(ALPHAS, "?"),
     endScope: "literal",
+    relevance: 5,
   };
   /** @type {Mode} */
   const COLOR_TAGS = {
@@ -79,6 +80,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: regex.concat(COLORS, "?"),
     endScope: "literal",
+    relevance: 5,
   };
   /** @type {Mode} */
   const FUNCTION_TAGS = {
@@ -87,6 +89,7 @@ export default function (hljs) {
       1: "title.function.invoke",
       3: "literals",
     },
+    relevance: 2,
   };
   /** @type {Mode} */
   const STRING_TAGS = {
@@ -104,6 +107,7 @@ export default function (hljs) {
       hljs.COMMENT(/^Comment:\s+/, "$"),
       hljs.COMMENT(/^Format:\s+/, "$"),
     ],
+    relevance: 5,
   };
 
   /** @type {Mode} */
@@ -158,6 +162,7 @@ export default function (hljs) {
         },
       ],
     },
+    relevance: 5,
   };
 
   /** @type {Mode} */
@@ -188,7 +193,6 @@ export default function (hljs) {
     scope: "string",
     begin: /\{/,
     end: /\}/,
-    relevance: 0,
     contains: [
       CLIP_TAGS,
       DECIMAL_TAGS,
@@ -202,6 +206,7 @@ export default function (hljs) {
       TRANSFORM_TAGS,
       DRAWING_MODE,
     ],
+    relevance: 0,
   };
 
   /** @type {Mode} */
@@ -209,28 +214,29 @@ export default function (hljs) {
     scope: "section",
     begin: /^\[/,
     end: /\]/,
+    relevance: 0,
   };
 
   /** @type {Mode} */
   const DIALOGUE = {
     begin: [
       /^Dialogue/, // Key
-      /:[\t ]+/,
-      /[^,\r\n]*/, // Layer
+      /:[\t ]/, // Strictly singular space or tab for performance
+      /\d*/, // Layer
       /,/,
-      /[^,\r\n]*/, // Start
+      /[:\d.]+/, // Start
       /,/,
-      /[^,\r\n]*/, // End
+      /[:\d.]+/, // End
       /,/,
-      /[^,\r\n]*/, // Style
+      /[^,\r\n]+/, // Style
       /,/,
       /[^,\r\n]*/, // Actor
       /,/,
-      /[^,\r\n]*/, // MarginL
+      /\d+/, // MarginL
       /,/,
-      /[^,\r\n]*/, // MarginR
+      /\d+/, // MarginR
       /,/,
-      /[^,\r\n]*/, // MarginV
+      /\d+/, // MarginV
       /,/,
       /[^,\r\n]*/, // Effect
       /,/,
@@ -261,58 +267,33 @@ export default function (hljs) {
       end: /$/,
       contains: [BRACE_GROUP],
     },
+    relevance: 2,
   };
 
   /** @type {Mode} */
   const STYLE_DEFINITION = {
     begin: [
       /^Style/, // Key
-      /:[\t ]+/,
-      /[^,\r\n]*/, // Name
+      /:[\t ]/, // Strictly singular space or tab for performance
+      /[^,\r\n]+/, // Name
       /,/,
-      /[^,\r\n]*/, // Font Name
+      /[^,\r\n]+/, // Font Name
       /,/,
-      /[^,\r\n]*/, // Font Size
+      /\d{1,8}/, // Font Size
       /,/,
-      /[^,\r\n]*/, // Primary Color
+      /&H[0-9A-Fa-f]{2,8}&/, // Primary Color
       /,/,
-      /[^,\r\n]*/, // Secondary Color
+      /&H[0-9A-Fa-f]{2,8}&/, // Secondary Color
       /,/,
-      /[^,\r\n]*/, // Outline Color
+      /&H[0-9A-Fa-f]{2,8}&/, // Outline Color
       /,/,
-      /[^,\r\n]*/, // Background Color
+      /&H[0-9A-Fa-f]{2,8}&/, // Background Color
       /,/,
-      /[^,\r\n]*/, // Bold
-      /,/,
-      /[^,\r\n]*/, // Italic
-      /,/,
-      /[^,\r\n]*/, // Underline
-      /,/,
-      /[^,\r\n]*/, // Strikethrough
-      /,/,
-      /[^,\r\n]*/, // ScaleX
-      /,/,
-      /[^,\r\n]*/, // ScaleY
-      /,/,
-      /[^,\r\n]*/, // Spacing
-      /,/,
-      /[^,\r\n]*/, // Angle
-      /,/,
-      /[^,\r\n]*/, // BorderStyle
-      /,/,
-      /[^,\r\n]*/, // Outline
-      /,/,
-      /[^,\r\n]*/, // Shadow
-      /,/,
-      /[^,\r\n]*/, // Alignment
-      /,/,
-      /[^,\r\n]*/, // MarginL
-      /,/,
-      /[^,\r\n]*/, // MarginR
-      /,/,
-      /[^,\r\n]*/, // MarginV
-      /,/,
-      /[^,\r\n]*$/, // Encoding
+      // We don't care about:
+      // Bold, Italic, Underline, Strikethrough, ScaleX, ScaleY, Spacing
+      // Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR
+      // MarginV, Encoding
+      /[\d+,]+$/,
     ],
     beginScope: {
       1: "attr", // Key
@@ -331,38 +312,13 @@ export default function (hljs) {
       14: "comment",
       15: "literal", // Background Color
       16: "comment",
-      17: "comment", // Bold
-      18: "comment",
-      19: "comment", // Italic
-      20: "comment",
-      21: "comment", // Underline
-      22: "comment",
-      23: "comment", // Strikethrough
-      24: "comment",
-      25: "comment", // ScaleX
-      26: "comment",
-      27: "comment", // ScaleY
-      28: "comment",
-      29: "comment", // Spacing
-      30: "comment",
-      31: "comment", // Angle
-      32: "comment",
-      33: "comment", // Border Style
-      34: "comment",
-      35: "comment", // Outline
-      36: "comment",
-      37: "comment", // Shadow
-      38: "comment",
-      39: "comment", // Alignment
-      40: "comment",
-      41: "comment", // MarginL
-      42: "comment",
-      43: "comment", // MarginR
-      44: "comment",
-      45: "comment", // MarginV
-      46: "comment",
-      47: "comment", // Encoding
+      // We don't care about:
+      // Bold, Italic, Underline, Strikethrough, ScaleX, ScaleY, Spacing
+      // Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR
+      // MarginV, Encoding
+      17: "comment",
     },
+    relevance: 0,
   };
 
   // A simple key begins with an alphabet at the start of the line
@@ -373,13 +329,16 @@ export default function (hljs) {
   const SIMPLE_KEY_VALUE = {
     begin: [
       /^(?!Dialogue|Style|Format|Comment)[A-Za-z][A-Za-z \t]*/,
-      /:[\t ]*/,
-      /.*$/,
+      /:[\t ]+/,
     ],
     beginScope: {
       1: "attr",
-      3: "string",
     },
+    starts: {
+      scope: "string",
+      end: /$/,
+    },
+    relevance: 0,
   };
 
   return {

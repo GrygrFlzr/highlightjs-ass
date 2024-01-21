@@ -1,0 +1,193 @@
+/**
+ * Discord theme colors
+ * Date: 2024-01-21 02:18 UTC
+ * Version: Stable 260292 (3bfe918)
+ */
+:root {
+  --saturation-factor: 1;
+  --primary-230-hsl: 210 calc(var(--saturation-factor, 1) * 9.1%) 87.1%;
+  --primary-230: hsl(var(--primary-230-hsl) / 1);
+  --primary-600-hsl: 223 calc(var(--saturation-factor, 1) * 6.7%) 20.6%;
+  --primary-600: hsl(var(--primary-600-hsl) / 1);
+  --primary-630-hsl: 220 calc(var(--saturation-factor, 1) * 6.5%) 18%;
+  --primary-630: hsl(var(--primary-630-hsl) / 1);
+  --primary-700-hsl: 225 calc(var(--saturation-factor, 1) * 6.3%) 12.5%;
+  --primary-700: hsl(var(--primary-700-hsl) / 1);
+
+  --font-code: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
+  --background-primary: var(--primary-600);
+  --background-secondary: var(--primary-630);
+  --background-tertiary: var(--primary-700);
+  --text-normal: var(--primary-230);
+}
+.theme-dark {
+  background: var(--background-tertiary);
+}
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  border-radius: 4px;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  color: var(--text-normal);
+  background: var(--background-secondary);
+}
+.theme-dark .hljs-doctag,
+.theme-dark .hljs-keyword,
+.theme-dark .hljs-meta .hljs-keyword,
+.theme-dark .hljs-template-tag,
+.theme-dark .hljs-template-variable,
+.theme-dark .hljs-type,
+.theme-dark .hljs-variable.language_ {
+  color: #ff7b72;
+}
+.theme-dark .hljs-title,
+.theme-dark .hljs-title.class_,
+.theme-dark .hljs-title.class_.inherited__,
+.theme-dark .hljs-title.function_ {
+  color: #d2a8ff;
+}
+.theme-dark .hljs-attr,
+.theme-dark .hljs-attribute,
+.theme-dark .hljs-literal,
+.theme-dark .hljs-meta,
+.theme-dark .hljs-number,
+.theme-dark .hljs-operator,
+.theme-dark .hljs-variable,
+.theme-dark .hljs-selector-attr,
+.theme-dark .hljs-selector-class,
+.theme-dark .hljs-selector-id {
+  color: #79c0ff;
+}
+.theme-dark .hljs-regexp,
+.theme-dark .hljs-string,
+.theme-dark .hljs-meta .hljs-string {
+  color: #a5d6ff;
+}
+.theme-dark .hljs-built_in,
+.theme-dark .hljs-symbol {
+  color: #ffa657;
+}
+.theme-dark .hljs-comment,
+.theme-dark .hljs-code,
+.theme-dark .hljs-formula {
+  color: #8b949e;
+}
+.theme-dark .hljs-name,
+.theme-dark .hljs-quote,
+.theme-dark .hljs-selector-tag,
+.theme-dark .hljs-selector-pseudo {
+  color: #7ee787;
+}
+.theme-dark .hljs-subst {
+  color: #c9d1d9;
+}
+.theme-dark .hljs-section {
+  color: #1f6feb;
+  font-weight: 700;
+}
+.theme-dark .hljs-bullet {
+  color: #f2cc60;
+}
+.theme-dark .hljs-emphasis {
+  color: #c9d1d9;
+  font-style: italic;
+}
+.theme-dark .hljs-strong {
+  color: #c9d1d9;
+  font-weight: 700;
+}
+.theme-dark .hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+.theme-dark .hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+.theme-light .hljs-doctag,
+.theme-light .hljs-keyword,
+.theme-light .hljs-meta .hljs-keyword,
+.theme-light .hljs-template-tag,
+.theme-light .hljs-template-variable,
+.theme-light .hljs-type,
+.theme-light .hljs-variable.language_ {
+  color: #d73a49;
+}
+.theme-light .hljs-title,
+.theme-light .hljs-title.class_,
+.theme-light .hljs-title.class_.inherited__,
+.theme-light .hljs-title.function_ {
+  color: #6f42c1;
+}
+.theme-light .hljs-attr,
+.theme-light .hljs-attribute,
+.theme-light .hljs-literal,
+.theme-light .hljs-meta,
+.theme-light .hljs-number,
+.theme-light .hljs-operator,
+.theme-light .hljs-variable,
+.theme-light .hljs-selector-attr,
+.theme-light .hljs-selector-class,
+.theme-light .hljs-selector-id {
+  color: #005cc5;
+}
+.theme-light .hljs-regexp,
+.theme-light .hljs-string,
+.theme-light .hljs-meta .hljs-string {
+  color: #032f62;
+}
+.theme-light .hljs-built_in,
+.theme-light .hljs-symbol {
+  color: #e36209;
+}
+.theme-light .hljs-comment,
+.theme-light .hljs-code,
+.theme-light .hljs-formula {
+  color: #6a737d;
+}
+.theme-light .hljs-name,
+.theme-light .hljs-quote,
+.theme-light .hljs-selector-tag,
+.theme-light .hljs-selector-pseudo {
+  color: #22863a;
+}
+.theme-light .hljs-subst {
+  color: #24292e;
+}
+.theme-light .hljs-section {
+  color: #005cc5;
+  font-weight: 700;
+}
+.theme-light .hljs-bullet {
+  color: #735c0f;
+}
+.theme-light .hljs-emphasis {
+  color: #24292e;
+  font-style: italic;
+}
+.theme-light .hljs-strong {
+  color: #24292e;
+  font-weight: 700;
+}
+.theme-light .hljs-addition {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+.theme-light .hljs-deletion {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+code {
+  font-family: var(--font-code);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  text-indent: 0;
+  white-space: pre-wrap;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-tertiary);
+}
