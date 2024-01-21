@@ -1,3 +1,7 @@
+# 0.0.5
+
+- Support SSA comments (`!:`), Dialogue lines, and Style lines
+
 # 0.0.4
 
 - Support \\n, \\N, and \\h

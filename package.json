@@ -1,12 +1,13 @@
 {
   "name": "highlightjs-ass",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "(Advanced) SubStation Alpha subtitle grammar for highlight.js",
   "type": "module",
   "main": "src/languages/ass.js",
   "scripts": {
     "clean": "rm -rf dist/*",
     "test": "mocha --reporter spec",
+    "generate-tests": "node ./test/generate.js",
     "build": "node build.js"
   },
   "keywords": [

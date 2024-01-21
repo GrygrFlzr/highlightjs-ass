@@ -14,7 +14,7 @@ await esbuild.build({
   bundle: true,
   minify: true,
   sourcemap: false,
-  target: ["chrome58", "firefox57", "safari11", "edge16"],
+  target: ["es2015"], // match hl.js
   outfile: "dist/ass.es.min.js",
   format: "esm",
 });
@@ -27,7 +27,7 @@ await esbuild.build({
   bundle: true,
   minify: true,
   sourcemap: false,
-  target: ["chrome58", "firefox57", "safari11", "edge16"],
+  target: ["es2015"], // match hl.js
   outfile: "dist/ass.min.js",
   format: "iife",
 });

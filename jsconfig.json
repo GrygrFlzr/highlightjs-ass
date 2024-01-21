@@ -3,7 +3,7 @@
     // enable latest features
     "lib": ["ESNext"],
     "module": "ESNext",
-    "target": "ESNext",
+    "target": "ES2017",
     "moduleDetection": "force",
     "allowJs": true,
     "checkJs": true,

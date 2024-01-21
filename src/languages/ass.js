@@ -106,6 +106,8 @@ export default function (hljs) {
       hljs.COMMENT(/^;/, "$"),
       hljs.COMMENT(/^Comment:\s+/, "$"),
       hljs.COMMENT(/^Format:\s+/, "$"),
+      // SSA 3.x comments
+      hljs.COMMENT(/^!: /, "$"),
     ],
     relevance: 5,
   };
@@ -230,7 +232,7 @@ export default function (hljs) {
     begin: [
       /^Dialogue/, // Key
       /:[\t ]/, // Strictly singular space or tab for performance
-      /\d*/, // Layer
+      /(\d{0,4}|Marked=\d)/, // Layer in ASS, Marked in SSA 3.x and 4.0
       /,/,
       /[:\d.]+/, // Start
       /,/,
@@ -289,19 +291,20 @@ export default function (hljs) {
       /,/,
       /\d{1,8}/, // Font Size
       /,/,
-      /&H[0-9A-Fa-f]{2,8}&/, // Primary Color
+      // Colors are hex in ASS and signed ints in SSA
+      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Primary Color
       /,/,
-      /&H[0-9A-Fa-f]{2,8}&/, // Secondary Color
+      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Secondary Color
       /,/,
-      /&H[0-9A-Fa-f]{2,8}&/, // Outline Color
+      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Outline Color
       /,/,
-      /&H[0-9A-Fa-f]{2,8}&/, // Background Color
+      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Background Color
       /,/,
       // We don't care about:
       // Bold, Italic, Underline, Strikethrough, ScaleX, ScaleY, Spacing
       // Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR
       // MarginV, Encoding
-      /[\d+,]+$/,
+      /[\d+,-]+$/, // SSA allows negative bold values
     ],
     beginScope: {
       1: "attr", // Key
