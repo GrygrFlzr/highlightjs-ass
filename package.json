@@ -1,6 +1,6 @@
 {
   "name": "highlightjs-ass",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "(Advanced) SubStation Alpha subtitle grammar for highlight.js",
   "type": "module",
   "main": "src/languages/ass.js",

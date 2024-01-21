@@ -19,7 +19,7 @@ async function generateSyntaxHighlightingSamples() {
   hljs.registerLanguage("ass", hljsDefineAss);
 
   const files = (await readdir(path.join(__dirname, "markup"))).filter(
-    (f) => !f.includes(".expect.")
+    (f) => !f.includes(".expect.") && (f.endsWith(".ass") || f.endsWith(".ssa"))
   );
   for (const file of files) {
     const filePath = path.join(__dirname, "markup", file);

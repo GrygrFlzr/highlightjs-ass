@@ -1,3 +1,10 @@
+# 0.0.6
+
+- Allow looser color syntax (missing trailing ampersand)
+- Allow decimal shadows etc. in Style definition
+- Accept Effect-less SSA v1 Dialogue lines
+- Accept SSA v2 and v3 Dialogue lines
+
 # 0.0.5
 
 - Support SSA comments (`!:`), Dialogue lines, and Style lines

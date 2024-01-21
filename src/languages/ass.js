@@ -227,12 +227,15 @@ export default function (hljs) {
     relevance: 0,
   };
 
-  /** @type {Mode} */
+  /**
+   * Modern ASS or SSA 4.x dialogue
+   * @type {Mode}
+   **/
   const DIALOGUE = {
     begin: [
       /^Dialogue/, // Key
       /:[\t ]/, // Strictly singular space or tab for performance
-      /(\d{0,4}|Marked=\d)/, // Layer in ASS, Marked in SSA 3.x and 4.0
+      /\d{0,3}/, // Layer in ASS and SSA 4
       /,/,
       /[:\d.]+/, // Start
       /,/,
@@ -242,11 +245,12 @@ export default function (hljs) {
       /,/,
       /[^,\r\n]*/, // Actor
       /,/,
-      /\d+/, // MarginL
+      // Limit to 4 digits as that was what Sub Station generated
+      /\d{0,4}/, // MarginL
       /,/,
-      /\d+/, // MarginR
+      /\d{0,4}/, // MarginR
       /,/,
-      /\d+/, // MarginV
+      /\d{0,4}/, // MarginV
       /,/,
       /[^,\r\n]*/, // Effect
       /,/,
@@ -277,7 +281,123 @@ export default function (hljs) {
       end: /$/,
       contains: [SIMPLE_ESCAPE_CHAR, BRACE_GROUP],
     },
-    relevance: 2,
+    relevance: 10,
+  };
+
+  /** @type {Mode} */
+  const SSA_2_OR_3_DIALOGUE = {
+    begin: [
+      /^Dialogue/, // Key
+      /:[\t ]/, // Strictly singular space or tab for performance
+      /Marked=\d/, // Layer in ASS
+      /,/,
+      /[:\d.]+/, // Start
+      /,/,
+      /[:\d.]+/, // End
+      /,/,
+      /[^,\r\n]+/, // Style
+      /,/,
+      /[^,\r\n]*/, // Actor
+      /,/,
+      /\d{4}/, // MarginL
+      /,/,
+      /\d{4}/, // MarginR
+      /,/,
+      /\d{4}/, // MarginV
+      /,/,
+      // Effect is stricter in SSA 2 and 3
+      // as other authoring tools were not in much use
+      /(![Ee]ffect|[Kk]araoke|[Ss]croll ?[Uu]p|)/,
+      /,/,
+    ],
+    beginScope: {
+      1: "built_in", // Key
+      2: "comment",
+      3: "number", // Layer
+      4: "comment",
+      5: "literal", // Start
+      6: "comment",
+      7: "title.class", // End
+      8: "comment",
+      9: "variable.constant", // Style
+      10: "comment",
+      11: "variable", // Actor Name
+      12: "comment",
+      13: "comment", // MarginL
+      14: "comment",
+      15: "comment", // MarginR
+      16: "comment",
+      17: "comment", // MarginV
+      18: "comment",
+      19: "built_in", // Effect
+      20: "comment",
+    },
+    starts: {
+      end: /$/,
+      contains: [SIMPLE_ESCAPE_CHAR, BRACE_GROUP],
+    },
+    relevance: 10,
+  };
+
+  /**
+   * \C1 - \C5 tags seen in SSA 1 scripts
+   * @type {Mode}
+   */
+  const SSA_1_COLOR = {
+    begin: /\\C/,
+    end: /\d/,
+    beginScope: "title.function.invoke",
+    endScope: "title.function.invoke",
+  };
+
+  /** @type {Mode} */
+  const SSA_1_DIALOGUE = {
+    begin: [
+      /^Dialogue/, // Key
+      /:[\t ]/, // Strictly singular space or tab for performance
+      /Marked=\d/, // Marked in SSA 1.x
+      /,/,
+      /[:\d.]+/, // Start
+      /,/,
+      /[:\d.]+/, // End
+      /,/,
+      /[^,\r\n]+/, // Style
+      /,/,
+      /[^,\r\n]*/, // Actor
+      /,/,
+      /\d+/, // MarginL
+      /,/,
+      /\d+/, // MarginR
+      /,/,
+      /\d+/, // MarginV
+      /,(?!!Effect,)/,
+      // No effect field, it was added in v2+
+    ],
+    beginScope: {
+      1: "built_in", // Key
+      2: "comment",
+      3: "number", // Layer
+      4: "comment",
+      5: "literal", // Start
+      6: "comment",
+      7: "title.class", // End
+      8: "comment",
+      9: "variable.constant", // Style
+      10: "comment",
+      11: "variable", // Actor Name
+      12: "comment",
+      13: "comment", // MarginL
+      14: "comment",
+      15: "comment", // MarginR
+      16: "comment",
+      17: "comment", // MarginV
+      18: "comment",
+    },
+    starts: {
+      end: /$/,
+      contains: [SIMPLE_ESCAPE_CHAR, SSA_1_COLOR, BRACE_GROUP],
+    },
+    relevance: 10,
   };
 
   /** @type {Mode} */
@@ -292,19 +412,19 @@ export default function (hljs) {
       /\d{1,8}/, // Font Size
       /,/,
       // Colors are hex in ASS and signed ints in SSA
-      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Primary Color
+      /(&H[0-9A-Fa-f]{2,8}&?|-?\d+)/, // Primary Color
       /,/,
-      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Secondary Color
+      /(&H[0-9A-Fa-f]{2,8}&?|-?\d+)/, // Secondary Color
       /,/,
-      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Outline Color
+      /(&H[0-9A-Fa-f]{2,8}&?|-?\d+)/, // Outline Color
       /,/,
-      /(&H[0-9A-Fa-f]{2,8}&|-?\d+)/, // Background Color
+      /(&H[0-9A-Fa-f]{2,8}&?|-?\d+)/, // Background Color
       /,/,
       // We don't care about:
       // Bold, Italic, Underline, Strikethrough, ScaleX, ScaleY, Spacing
       // Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR
       // MarginV, Encoding
-      /[\d+,-]+$/, // SSA allows negative bold values
+      /[\d+,.-]+$/, // Allow negative and decimal values
     ],
     beginScope: {
       1: "attr", // Key
@@ -329,7 +449,7 @@ export default function (hljs) {
       // MarginV, Encoding
       17: "comment",
     },
-    relevance: 0,
+    relevance: 10,
   };
 
   // A simple key begins with an alphabet at the start of the line
@@ -340,7 +460,7 @@ export default function (hljs) {
   const SIMPLE_KEY_VALUE = {
     begin: [
       /^(?!Dialogue|Style|Format|Comment)[A-Za-z][A-Za-z \t]*/,
-      /:[\t ]+/,
+      /:[\t ]*/,
     ],
     beginScope: {
       1: "attr",
@@ -365,6 +485,8 @@ export default function (hljs) {
       COMMENTS,
       SIMPLE_KEY_VALUE,
       DIALOGUE,
+      SSA_2_OR_3_DIALOGUE,
+      SSA_1_DIALOGUE,
       STYLE_DEFINITION,
     ],
   };
