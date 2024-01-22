@@ -104,6 +104,7 @@ export default function (hljs) {
   const COMMENTS = {
     variants: [
       hljs.COMMENT(/^;/, "$"),
+      hljs.COMMENT(/^Data:\s+/, "$"), // aegisub extradata
       hljs.COMMENT(/^Comment:\s+/, "$"),
       hljs.COMMENT(/^Format:\s+/, "$"),
       // SSA 3.x comments
@@ -482,11 +483,11 @@ export default function (hljs) {
   // A simple key begins with an alphabet at the start of the line
   // ...followed by any number of alphabetical letters or spaces
   // ...ending with a colon followed immediately by a space, tab or newline.
-  // EXCEPT Dialogue, Style, Format, or Comment lines
+  // EXCEPT Dialogue, Style, Format, Comment, or Data lines
   /** @type {Mode} */
   const SIMPLE_KEY_VALUE = {
     begin: [
-      /^(?!Dialogue|Style|Format|Comment)[A-Za-z][A-Za-z \t]*/,
+      /^(?!Dialogue|Style|Format|Comment|Data)[A-Za-z][A-Za-z \t]*/,
       /:[\t ]*/,
     ],
     beginScope: {
