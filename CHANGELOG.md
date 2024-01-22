@@ -1,3 +1,7 @@
+# 0.0.7
+
+- Additional SSA v1 support (`\C`, `\F`, `\I`)
+
 # 0.0.6
 
 - Allow looser color syntax (missing trailing ampersand)

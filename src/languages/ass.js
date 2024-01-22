@@ -340,14 +340,35 @@ export default function (hljs) {
   };
 
   /**
-   * \C1 - \C5 tags seen in SSA 1 scripts
+   * \C1, \C3 - \C7 tags seen in SSA 1 scripts
+   * Also \CF
    * @type {Mode}
    */
   const SSA_1_COLOR = {
     begin: /\\C/,
-    end: /\d/,
+    end: /[\dF]/,
     beginScope: "title.function.invoke",
     endScope: "title.function.invoke",
+  };
+
+  /**
+   * \F1 and \F2 tags seen in SSA 1 scripts
+   * @type {Mode}
+   */
+  const SSA_1_F_TAG = {
+    begin: /\\F/,
+    end: /[12]/,
+    beginScope: "title.function.invoke",
+    endScope: "title.function.invoke",
+  };
+
+  /**
+   * \I tags seen in SSA 1 scripts
+   * @type {Mode}
+   */
+  const SSA_1_ITALICS = {
+    begin: /\\I/,
+    beginScope: "title.function.invoke",
   };
 
   /** @type {Mode} */
@@ -395,7 +416,13 @@ export default function (hljs) {
     },
     starts: {
       end: /$/,
-      contains: [SIMPLE_ESCAPE_CHAR, SSA_1_COLOR, BRACE_GROUP],
+      contains: [
+        SIMPLE_ESCAPE_CHAR,
+        SSA_1_COLOR,
+        SSA_1_F_TAG,
+        SSA_1_ITALICS,
+        BRACE_GROUP,
+      ],
     },
     relevance: 10,
   };
