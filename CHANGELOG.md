@@ -1,3 +1,8 @@
+# 0.0.8
+
+- Swap buildchain to `rolldown` and `@rollup/plugin-terser`
+- Include license in bundled files
+
 # 0.0.7
 
 - Additional SSA v1 support (`\C`, `\F`, `\I`)

@@ -4,7 +4,6 @@
     "lib": ["ESNext"],
     "module": "ESNext",
     "target": "ES2017",
-    "moduleDetection": "force",
     "allowJs": true,
     "checkJs": true,
 
@@ -20,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src/**/*.js", "test/**/*.js", "dev/**/*.js", "build.js"],
+  "include": ["src/global.d.ts", "src/**/*.js", "test/**/*.js", "dev/**/*.js"]
 }

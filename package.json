@@ -1,14 +1,13 @@
 {
   "name": "highlightjs-ass",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "(Advanced) SubStation Alpha subtitle grammar for highlight.js",
   "type": "module",
   "main": "src/languages/ass.js",
   "scripts": {
-    "clean": "rm -rf dist/*",
     "test": "mocha --reporter spec",
     "generate-tests": "node ./test/generate.js",
-    "build": "node build.js"
+    "build": "rolldown -c"
   },
   "keywords": [
     "subtitle",
@@ -41,12 +40,18 @@
     }
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.11.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.0",
     "esbuild": "0.19.11",
-    "highlight.js": "^11.9.0",
-    "mocha": "^10.2.0",
-    "prettier": "^3.2.4",
+    "highlight.js": "^11.11.1",
+    "mocha": "^11.1.0",
+    "prettier": "^3.4.2",
+    "rolldown": "1.0.0-beta.3",
     "should": "^13.2.3"
-  }
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b"
 }
