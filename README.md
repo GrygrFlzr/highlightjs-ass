@@ -58,7 +58,7 @@ The bare minimum for using this highlighter on a web page is linking to the `hig
 />
 <script type="module">
   import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/es/highlight.min.js";
-  import hljsAss from "https://cdn.jsdelivr.net/npm/highlightjs-ass@1.0.0/+esm";
+  import hljsAss from "https://cdn.jsdelivr.net/npm/highlightjs-ass@1.0.1/+esm";
   hljs.registerLanguage("ass", hljsAss);
   hljs.highlightAll();
 </script>
@@ -74,7 +74,7 @@ Mainly used if you need IE11 support.
   href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/dark.min.css"
 />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/es/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/highlightjs-ass@1.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-ass@1.0.1"></script>
 <script>
   hljs.highlightAll();
 </script>

@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Fixed non-ESM CDN build not inlining the import
+
 # 1.0.0
 
 - Swap buildchain to `rolldown` and `@rollup/plugin-terser`
