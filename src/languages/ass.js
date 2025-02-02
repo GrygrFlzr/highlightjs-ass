@@ -1,6 +1,6 @@
 /*
 Language: Advanced SubStation Alpha
-Author: GrygrFlzr <grygrflzr@hotmail.com>
+Author: GrygrFlzr <git@cybeast.dev>
 Category: subtitle
 Website: https://github.com/libass/libass
 */
@@ -193,7 +193,7 @@ export default function (hljs) {
 
   /** @type {Mode} */
   const BRACE_GROUP = {
-    scope: "string",
+    scope: "comment",
     begin: /\{/,
     end: /\}/,
     contains: [

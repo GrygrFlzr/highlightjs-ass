@@ -21,5 +21,11 @@
     "useUnknownInCatchVariables": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src/global.d.ts", "src/**/*.js", "test/**/*.js", "dev/**/*.js"]
+  "include": [
+    "src/global.d.ts",
+    "src/**/*.js",
+    "test/**/*.js",
+    "dev/**/*.js",
+    "generate.js"
+  ]
 }

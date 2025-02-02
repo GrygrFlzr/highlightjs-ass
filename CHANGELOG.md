@@ -1,7 +1,9 @@
-# 0.0.8
+# 1.0.0
 
 - Swap buildchain to `rolldown` and `@rollup/plugin-terser`
 - Include license in bundled files
+- Highlight inline ASS comments `{like this!}`
+- Updated README to reflect support of official highlight.js tooling
 
 # 0.0.7
 
@@ -20,7 +22,7 @@
 
 # 0.0.4
 
-- Support \\n, \\N, and \\h
+- Support `\\n`, `\\N`, and `\\h`
 
 # 0.0.3
 

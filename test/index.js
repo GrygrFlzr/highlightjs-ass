@@ -11,37 +11,88 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 hljs.registerLanguage("ass", hljsDefineAss);
-
+hljs.debugMode();
 const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
+
+const markupFiles = (
+  await readdir(path.join(__dirname, "markup", "ass"))
+).filter((f) => !f.includes(".expect."));
 
 describe("ASS syntax highlighting", () => {
-  async function itShouldPerformSyntaxHighlighting() {
-    hljs.registerLanguage("ass", hljsDefineAss);
-
-    const files = (await readdir(path.join(__dirname, "markup"))).filter(
-      (f) => !f.includes(".expect.")
-    );
-    const scenarios = files.map((f) => f.replace(/\.(ass|ssa)$/, ""));
-    for (const scenario of scenarios) {
-      it(`should perform syntax highlighting on "${scenario}"`, async () => {
-        const file = `${scenario}.ass`;
-        const filePath = path.join(__dirname, "markup", file);
+  function itShouldPerformSyntaxHighlighting() {
+    for (const file of markupFiles) {
+      it(`should perform syntax highlighting on "${file}"`, (done) => {
+        const filePath = path.join(__dirname, "markup", "ass", file);
         const expectedFilePath = filePath.replace(
           /\.(ass|ssa)$/,
           ".expect.html"
         );
         // get rid of byte order mark
-        const code = (await readFile(filePath, "utf-8")).trimStart();
-        const expected = await readFile(expectedFilePath, "utf-8");
-        const result = hljs.highlight(code, {
-          language: "ass",
-        });
-        const actual = result.value;
-        actual.trim().should.eql(expected.trim(), file);
+        fs.readFile(
+          filePath,
+          {
+            encoding: "utf-8",
+          },
+          (sourceErr, sourceText) => {
+            if (sourceErr) {
+              done(sourceErr);
+              return;
+            }
+            fs.readFile(
+              expectedFilePath,
+              {
+                encoding: "utf-8",
+              },
+              (expectedFileErr, expectedText) => {
+                if (expectedFileErr) {
+                  done(expectedFileErr);
+                  return;
+                }
+                const result = hljs.highlight(sourceText, {
+                  language: "ass",
+                });
+                const actual = result.value;
+                actual.trim().should.eql(expectedText.trim(), file);
+                done();
+              }
+            );
+          }
+        );
       });
     }
   }
 
   itShouldPerformSyntaxHighlighting();
+});
+
+const detectFiles = await readdir(path.join(__dirname, "detect"));
+
+describe("ASS auto-detection", () => {
+  function itShouldPerformAutoDetection() {
+    for (const file of detectFiles) {
+      it(`should detect "${file}" as "ass"`, (done) => {
+        const filePath = path.join(__dirname, "detect", file);
+        // get rid of byte order mark
+        fs.readFile(
+          filePath,
+          {
+            encoding: "utf-8",
+          },
+          (sourceErr, sourceText) => {
+            if (sourceErr) {
+              done(sourceErr);
+              return;
+            }
+            const result = hljs.highlightAuto(sourceText);
+            hljs;
+            const detectedLanguage = result.language;
+            "ass".should.eql(detectedLanguage, "Expected language mismatch");
+            done();
+          }
+        );
+      });
+    }
+  }
+
+  itShouldPerformAutoDetection();
 });

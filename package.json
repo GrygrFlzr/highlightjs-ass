@@ -1,12 +1,13 @@
 {
   "name": "highlightjs-ass",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "(Advanced) SubStation Alpha subtitle grammar for highlight.js",
   "type": "module",
   "main": "src/languages/ass.js",
+  "browser": "src/iife.js",
   "scripts": {
-    "test": "mocha --reporter spec",
-    "generate-tests": "node ./test/generate.js",
+    "test": "mocha test --parallel",
+    "generate-tests": "node ./generate.js",
     "build": "rolldown -c"
   },
   "keywords": [
