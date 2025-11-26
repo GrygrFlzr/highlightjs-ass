@@ -1,9 +1,10 @@
-import { defineConfig } from "rolldown";
+import babel from "@rollup/plugin-babel";
 import terser from "@rollup/plugin-terser";
-import packageData from "./package.json" with { type: "json" };
+import pkg from "./package.json" with { type: "json" };
+import { defineConfig } from "rollup";
 
-const HLJS_ASS_VERSION = packageData.version;
-const HLJS_VERSION = packageData.devDependencies["highlight.js"];
+const HLJS_ASS_VERSION = pkg.version;
+const HLJS_VERSION = pkg.devDependencies["highlight.js"];
 const VERSION_STRING = `
 /**!
  * \`ass\` grammar v${HLJS_ASS_VERSION} compiled for Highlight.js ${HLJS_VERSION}
@@ -13,29 +14,38 @@ const VERSION_STRING = `
 
 export default defineConfig([
   {
+    plugins: [
+      babel({
+        babelHelpers: "bundled",
+        presets: ["@babel/preset-env"],
+      }),
+    ],
     input: "./src/languages/ass.js",
     output: {
       file: "dist/ass.es.min.js",
       format: "esm",
       banner: VERSION_STRING,
-      target: "es2015",
       plugins: [terser()],
       sourcemap: true,
     },
-    platform: "neutral",
+    external: ["highlight.js"],
   },
   {
+    plugins: [
+      babel({
+        babelHelpers: "bundled",
+        presets: ["@babel/preset-env"],
+      }),
+    ],
     input: "./src/iife.js",
     output: {
       file: "dist/ass.min.js",
       format: "iife",
       banner: VERSION_STRING,
       inlineDynamicImports: true,
-      target: "es2015",
       plugins: [terser()],
       sourcemap: true,
     },
     external: ["highlight.js"],
-    platform: "browser",
   },
 ]);

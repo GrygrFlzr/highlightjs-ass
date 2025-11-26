@@ -1,3 +1,7 @@
+# unreleased
+
+- Swap buildchain to `rollup`
+
 # 1.0.1
 
 - Fixed non-ESM CDN build not inlining the import

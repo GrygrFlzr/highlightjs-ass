@@ -8,7 +8,7 @@
   "scripts": {
     "test": "mocha test --parallel",
     "generate-tests": "node ./generate.js",
-    "build": "rolldown -c"
+    "build": "rollup -c"
   },
   "keywords": [
     "subtitle",
@@ -41,18 +41,19 @@
     }
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.13.0",
-    "esbuild": "0.19.11",
+    "@types/node": "^24.10.1",
     "highlight.js": "^11.11.1",
-    "mocha": "^11.1.0",
-    "prettier": "^3.4.2",
-    "rolldown": "1.0.0-beta.3",
+    "mocha": "^11.7.5",
+    "prettier": "^3.6.2",
+    "rollup": "^4.53.3",
     "should": "^13.2.3"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.11.0"
   },
-  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b"
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
 }
