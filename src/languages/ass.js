@@ -51,6 +51,7 @@ export default function (hljs) {
       2: "title.function.invoke",
       3: "params",
     },
+    endsWithParent: true,
   };
   /** @type {Mode} */
   const INTEGER_TAGS = {
@@ -58,6 +59,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: regex.concat(INTEGERS, "?"),
     endScope: "number",
+    endsWithParent: true,
   };
   /** @type {Mode} */
   const BOOLEAN_TAGS = {
@@ -65,6 +67,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: /[01]?/,
     endScope: "number",
+    endsWithParent: true,
   };
   /** @type {Mode} */
   const ALPHA_TAGS = {
@@ -72,6 +75,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: regex.concat(ALPHAS, "?"),
     endScope: "literal",
+    endsWithParent: true,
     relevance: 5,
   };
   /** @type {Mode} */
@@ -80,6 +84,7 @@ export default function (hljs) {
     beginScope: "title.function.invoke",
     end: regex.concat(COLORS, "?"),
     endScope: "literal",
+    endsWithParent: true,
     relevance: 5,
   };
   /** @type {Mode} */
@@ -89,6 +94,7 @@ export default function (hljs) {
       1: "title.function.invoke",
       3: "literals",
     },
+    endsWithParent: true,
     relevance: 2,
   };
   /** @type {Mode} */
@@ -98,6 +104,7 @@ export default function (hljs) {
       1: "title.function.invoke",
       2: "string",
     },
+    endsWithParent: true,
   };
 
   /** @type {Mode} */
@@ -135,6 +142,7 @@ export default function (hljs) {
         STRING_TAGS,
       ],
     },
+    endsWithParent: true,
   };
 
   /** @type {Mode} */
@@ -145,6 +153,7 @@ export default function (hljs) {
       2: "link",
       4: "literal",
     },
+    endsWithParent: true,
   };
 
   /** @type {Mode} */
@@ -165,6 +174,7 @@ export default function (hljs) {
         },
       ],
     },
+    endsWithParent: true,
     relevance: 5,
   };
 

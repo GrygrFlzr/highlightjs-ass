@@ -1,6 +1,7 @@
-# unreleased
+# 1.0.2
 
 - Swap buildchain to `rollup`
+- Better end-of-line detection inside tags
 
 # 1.0.1
 
