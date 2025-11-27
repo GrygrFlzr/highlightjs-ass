@@ -27,8 +27,6 @@ export default function (hljs) {
       /-?\d+\.\d*/, // e.g. 4.
       // scientific float - no decimal after E
       /-?\d*\.\d*[Ee]\d*/,
-
-      INTEGERS,
     ]
   );
   const ALPHAS = /&H[0-9A-Fa-f]{2}&/;
@@ -44,47 +42,42 @@ export default function (hljs) {
           "(?:pbo|frx|fry|frz|fax|fay|fsp|kf|ko|kt|fe|be|fr|fs|K|k)",
         ]
       ),
-      DECIMALS,
+      regex.either(DECIMALS, INTEGERS),
     ],
     beginScope: {
       1: "title.function.invoke",
       2: "title.function.invoke",
-      3: "params",
+      3: "number",
     },
-    endsWithParent: true,
   };
   /** @type {Mode} */
   const INTEGER_TAGS = {
     begin: /\\(an|b|q|a(?!lpha))/,
     beginScope: "title.function.invoke",
-    end: regex.concat(INTEGERS, "?"),
+    end: regex.concat("(?:", INTEGERS, ")?", /(?=[\}\\]|$)/),
     endScope: "number",
-    endsWithParent: true,
   };
   /** @type {Mode} */
   const BOOLEAN_TAGS = {
     begin: /\\(i(?!clip)|s|u)/,
     beginScope: "title.function.invoke",
-    end: /[01]?/,
+    end: regex.concat(/[01]?/, /(?=[\}\\]|$)/),
     endScope: "number",
-    endsWithParent: true,
   };
   /** @type {Mode} */
   const ALPHA_TAGS = {
     begin: /\\(alpha|1a|2a|3a|4a)/,
     beginScope: "title.function.invoke",
-    end: regex.concat(ALPHAS, "?"),
+    end: regex.concat("(?:", ALPHAS, ")?", /(?=[\}\\]|$)/),
     endScope: "literal",
-    endsWithParent: true,
     relevance: 5,
   };
   /** @type {Mode} */
   const COLOR_TAGS = {
     begin: /\\(1c|2c|3c|4c|c(?!lip))/,
     beginScope: "title.function.invoke",
-    end: regex.concat(COLORS, "?"),
+    end: regex.concat("(?:", COLORS, ")?", /(?=[\}\\]|$)/),
     endScope: "literal",
-    endsWithParent: true,
     relevance: 5,
   };
   /** @type {Mode} */
@@ -94,7 +87,7 @@ export default function (hljs) {
       1: "title.function.invoke",
       3: "literals",
     },
-    endsWithParent: true,
+    end: /(?=[\}\\]|$)/,
     relevance: 2,
   };
   /** @type {Mode} */
@@ -104,7 +97,7 @@ export default function (hljs) {
       1: "title.function.invoke",
       2: "string",
     },
-    endsWithParent: true,
+    end: /(?=[\}\\]|$)/,
   };
 
   /** @type {Mode} */
@@ -128,7 +121,7 @@ export default function (hljs) {
       1: "title.function.invoke",
     },
     starts: {
-      end: /\)/,
+      end: /\)|$/,
       excludeEnd: true,
       scope: "formula",
 
@@ -142,18 +135,21 @@ export default function (hljs) {
         STRING_TAGS,
       ],
     },
-    endsWithParent: true,
   };
 
   /** @type {Mode} */
   const DRAWING_COMMANDS = {
-    begin: [/[mnlbspc]? /, DECIMALS, / /, DECIMALS],
+    begin: [
+      /[mnlbspc]? /,
+      regex.either(DECIMALS, INTEGERS),
+      / /,
+      regex.either(DECIMALS, INTEGERS),
+    ],
     beginScope: {
       1: "built_in",
       2: "link",
       4: "literal",
     },
-    endsWithParent: true,
   };
 
   /** @type {Mode} */
@@ -163,18 +159,17 @@ export default function (hljs) {
       1: "built_in",
     },
     starts: {
-      end: /\)|$/,
+      end: /[)}]|$/,
       contains: [
         // vector version
         DRAWING_COMMANDS,
         // rect version
         {
-          match: DECIMALS,
+          match: regex.either(DECIMALS, INTEGERS),
           scope: "number",
         },
       ],
     },
-    endsWithParent: true,
     relevance: 5,
   };
 
@@ -205,7 +200,7 @@ export default function (hljs) {
   const BRACE_GROUP = {
     scope: "comment",
     begin: /\{/,
-    end: /\}/,
+    end: regex.either(/\}/, /$/),
     contains: [
       CLIP_TAGS,
       DECIMAL_TAGS,

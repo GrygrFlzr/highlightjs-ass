@@ -1,3 +1,8 @@
+# 1.0.3
+
+- Revert 1.0.2's `endsWithParent`
+- Use `regex.concat` for optional parameter behavior
+
 # 1.0.2
 
 - Swap buildchain to `rollup`
