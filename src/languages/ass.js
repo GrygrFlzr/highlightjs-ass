@@ -14,10 +14,10 @@ export default function (hljs) {
   const regex = hljs.regex;
   const INTEGERS = regex.either(
     ...[
-      // integer
-      /-?\d+/,
       // scientific integer
       /-?\d*[Ee]\d*/,
+      // integer
+      /-?\d+/,
     ]
   );
   const DECIMALS = regex.either(
@@ -33,6 +33,13 @@ export default function (hljs) {
   const COLORS = /&H[0-9A-Fa-f]{3,8}&/;
 
   /** @type {Mode} */
+  const NUMBER_ARG = {
+    match: /-?(?:\d+\.?\d*|\.\d+)/,
+    scope: "number",
+    relevance: 0,
+  };
+
+  /** @type {Mode} */
   const DECIMAL_TAGS = {
     begin: [
       /\\/,
@@ -42,7 +49,7 @@ export default function (hljs) {
           "(?:pbo|frx|fry|frz|fax|fay|fsp|kf|ko|kt|fe|be|fr|fs|K|k)",
         ]
       ),
-      regex.either(DECIMALS, INTEGERS),
+      regex.optional(regex.either(DECIMALS, INTEGERS)),
     ],
     beginScope: {
       1: "title.function.invoke",
@@ -54,21 +61,21 @@ export default function (hljs) {
   const INTEGER_TAGS = {
     begin: /\\(an|b|q|a(?!lpha))/,
     beginScope: "title.function.invoke",
-    end: regex.concat("(?:", INTEGERS, ")?", /(?=[\}\\]|$)/),
+    end: regex.concat("(?:", INTEGERS, ")?", /(?=[\}\\))]|$)/),
     endScope: "number",
   };
   /** @type {Mode} */
   const BOOLEAN_TAGS = {
     begin: /\\(i(?!clip)|s|u)/,
     beginScope: "title.function.invoke",
-    end: regex.concat(/[01]?/, /(?=[\}\\]|$)/),
+    end: regex.concat(/[01]?/, /(?=[\}\\)]|$)/),
     endScope: "number",
   };
   /** @type {Mode} */
   const ALPHA_TAGS = {
     begin: /\\(alpha|1a|2a|3a|4a)/,
     beginScope: "title.function.invoke",
-    end: regex.concat("(?:", ALPHAS, ")?", /(?=[\}\\]|$)/),
+    end: regex.concat("(?:", ALPHAS, ")?", /(?=[\}\\)]|$)/),
     endScope: "literal",
     relevance: 5,
   };
@@ -76,23 +83,25 @@ export default function (hljs) {
   const COLOR_TAGS = {
     begin: /\\(1c|2c|3c|4c|c(?!lip))/,
     beginScope: "title.function.invoke",
-    end: regex.concat("(?:", COLORS, ")?", /(?=[\}\\]|$)/),
+    end: regex.concat("(?:", COLORS, ")?", /(?=[\}\\)]|$)/),
     endScope: "literal",
     relevance: 5,
   };
   /** @type {Mode} */
   const FUNCTION_TAGS = {
-    begin: [/\\(move|fade|fad|org|pos)/, /\(/, /[^\)]*/, /\)/],
+    begin: [/\\(move|fade|fad|org|pos)/, /\(/],
     beginScope: {
       1: "title.function.invoke",
-      3: "literals",
     },
-    end: /(?=[\}\\]|$)/,
+    starts: {
+      end: /\)|(?=[\}\\])|$/,
+      contains: [NUMBER_ARG],
+    },
     relevance: 2,
   };
   /** @type {Mode} */
   const STRING_TAGS = {
-    begin: [/\\(fn|r)/, /[^\\\}]*/],
+    begin: [/\\(fn|r)/, /[^\\\}\r\n]*/],
     beginScope: {
       1: "title.function.invoke",
       2: "string",
@@ -111,30 +120,6 @@ export default function (hljs) {
       hljs.COMMENT(/^!: /, "$"),
     ],
     relevance: 5,
-  };
-
-  /** @type {Mode} */
-  const TRANSFORM_TAGS = {
-    scope: "string",
-    begin: [/\\t/, /\(/],
-    beginScope: {
-      1: "title.function.invoke",
-    },
-    starts: {
-      end: /\)|$/,
-      excludeEnd: true,
-      scope: "formula",
-
-      contains: [
-        DECIMAL_TAGS,
-        INTEGER_TAGS,
-        BOOLEAN_TAGS,
-        ALPHA_TAGS,
-        COLOR_TAGS,
-        FUNCTION_TAGS,
-        STRING_TAGS,
-      ],
-    },
   };
 
   /** @type {Mode} */
@@ -171,6 +156,30 @@ export default function (hljs) {
       ],
     },
     relevance: 5,
+  };
+
+  /** @type {Mode} */
+  const TRANSFORM_TAGS = {
+    begin: [/\\t/, /\(/],
+    beginScope: {
+      1: "title.function.invoke",
+    },
+    starts: {
+      end: /\)|(?=\})|$/,
+      excludeEnd: true,
+
+      contains: [
+        NUMBER_ARG,
+        DECIMAL_TAGS,
+        INTEGER_TAGS,
+        BOOLEAN_TAGS,
+        ALPHA_TAGS,
+        COLOR_TAGS,
+        FUNCTION_TAGS,
+        STRING_TAGS,
+        CLIP_TAGS,
+      ],
+    },
   };
 
   /** @type {Mode} */

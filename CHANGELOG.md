@@ -1,3 +1,12 @@
+# 1.0.4
+
+- Fixed tags with no ending brackets overrunning their scope
+- Fixed `\t` overrunning its scope
+- Fixed `\clip` not highlighting inside `\t`
+- Make function tags like `\pos` and `\move` as well as transforms `\t` highlight numbers individually, being comma separated
+- Fixed `\bord`, `\shad`, etc not highlighting without a number. This is acceptable syntax for resetting the style to default
+- Fixed scientific notation highlighting
+
 # 1.0.3
 
 - Revert 1.0.2's `endsWithParent`
